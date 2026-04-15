@@ -1,3 +1,4 @@
-# TODO: stop service
-# TODO: remove service
-# TODO: delete service file in systemd folders
+sudo systemctl stop lighting
+sudo systemctl disable lighting
+
+sudo rm /etc/systemd/system/lighting.service

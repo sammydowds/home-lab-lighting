@@ -3,7 +3,8 @@ Description=Lab Lighting
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/pi/lab.py
+ExecStart=/usr/bin/python3 /home/pi/lab/lighting.py
+EnvironmentFile=/home/pi/.hue_env
 WorkingDirectory=/home/pi
 StandardOutput=inherit
 StandardError=inherit

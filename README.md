@@ -5,6 +5,6 @@
 Creating automated lighting with PIR sensors in my home office.
 
 ## Requirements
-- Raspberry Pi (I am using a 3)
+- Raspberry Pi
 - PIR sensor
 - Hue Lights 
