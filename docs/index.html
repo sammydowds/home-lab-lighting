@@ -69,12 +69,16 @@
 
   <h3>2. Create the hue environment file</h3>
   <pre>python3 setup_hue_env.py</pre>
+  <p>This will output a file into your pi's home directory which the service references for its environment variables.
+    It is also responsible for setting up a group of lights and will require your input for that.</p>
 
   <h3>3. Create the systemd service and start it</h3>
   <pre>./start_service.sh</pre>
+  <p>This will copy over the lighting.service file into /etc/systemd/system, enable it, and start the service.</p>
 
   <h3>4. [NOTE] To stop and remove the service run remove-service.sh</h3>
   <pre>./remove_service.sh</pre>
+  <p>This will stop and remove the service folder from systemd.</p>
 
   <h2>License</h2>
   <p>MIT (or your preferred license)</p>
