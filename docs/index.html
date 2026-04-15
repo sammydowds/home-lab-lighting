@@ -1,9 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 
-<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hue Motion Lighting Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
+    code,
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 6px;
+      display: block;
+      overflow-x: auto;
+    }
+
+    h1,
+    h2,
+    h3 {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
 
 <body>
-  Future project site docs
+
+  <h1>Hue Motion Lighting Project</h1>
+  <p>
+    A Raspberry Pi-based automation system that uses a motion sensor to control Philips Hue lights via the Hue Bridge
+    API.
+  </p>
+
+  <h2>Overview</h2>
+  <p>
+    This project detects motion using a PIR sensor connected to a Raspberry Pi and automatically turns Hue lights on.
+    If no motion is detected for a configured period, the lights are turned off.
+  </p>
+
+  <h2>Features</h2>
+  <ul>
+    <li>Motion detection using GPIO PIR sensor</li>
+    <li>Automatic light activation via Hue Bridge API</li>
+    <li>Configurable timeout for inactivity</li>
+    <li>Environment-based configuration</li>
+    <li>Designed for headless Raspberry Pi operation</li>
+  </ul>
+
+  <h2>Architecture</h2>
+  <p>This project will run a service via systemd on the pi. I created scripts to setup a few things automagically: 1)
+    find the Hue Bridge IP, 2) register the device (to recieve a username), 3) store those in a file for future use, 4)
+    create a group of lights that will be controlled by the Pi (note: the lights cannot currently belong to a group or
+    room), and 5) setup a systemd service and run</p>
+  <ul>
+    <li><strong>Motion Sensor</strong> → GPIO input (gpiozero)</li>
+    <li><strong>Controller</strong> → Python service loop</li>
+    <li><strong>Hue API Layer</strong> → Custom Hue class wrapper</li>
+    <li><strong>Bridge</strong> → Philips Hue Bridge local network API</li>
+  </ul>
+
+  <h2>Requirements</h2>
+  <pre>
+Python 3.4+
+gpiozero
+requests
+Raspberry Pi (GPIO access)
+Philips Hue Bridge on same network
+Hue lights
+  </pre>
+
+  <h2>Setup</h2>
+  <p>Note: I enabled SSH access to my pi, which simplified interfacing with it.</p>
+
+  <h3>1. Clone the repository to the pi</h3>
+
+  <h3>2. Run setup_hue_env.py</h3>
+  <p>This will create a local .hue_env file in your /home/pi and will configure a group of lights on the network while
+    also registering your device with the Hue Bridge.</p>
+  <pre>
+    chmod +x setup_hue_env.py
+    python3 setup_hue_env.py
+  </pre>
+
+  <h3>3. Run start-service.sh</h3>
+  <p>This will create a systemd service, enable it to run after restart, and start the service.</p>
+  <pre>
+    chmod +x start-service.sh && ./start_service.sh
+  </pre>
+
+  <h3>4. [NOTE] To stop and remove the service run remove-service.sh</h3>
+  <pre>
+    chmod +x remove-service.sh && ./remove_service.sh
+  </pre>
+
+  <h2>How It Works</h2>
+  <ol>
+    <li>PIR sensor detects motion</li>
+    <li>Python script triggers Hue API call</li>
+    <li>Lights turn ON</li>
+    <li>Timer resets on each motion event</li>
+    <li>If no motion is detected → lights turn OFF after timeout</li>
+  </ol>
+
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li><strong>Bridge not found:</strong> Ensure device is on same LAN</li>
+    <li><strong>Connection errors:</strong> Check IP and username env variables</li>
+    <li><strong>GPIO not triggering:</strong> Verify wiring and pin configuration</li>
+  </ul>
+
+  <h2>License</h2>
+  <p>MIT (or your preferred license)</p>
+
 </body>
 
 </html>
