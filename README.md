@@ -1,10 +1,2 @@
-# Home Lab Lighting
+Please visit the [project site](https://sammydowds.github.io/home-lab-lighting/).
 
-## Summary
-
-Creating automated lighting with PIR sensors in my home office.
-
-## Requirements
-- Raspberry Pi
-- PIR sensor
-- Hue Lights 
