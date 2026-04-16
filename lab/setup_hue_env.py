@@ -83,10 +83,7 @@ def setup_lab_group(ip, username):
         "Please identify which lights to add to the lab group from the options below."
     )
     print(json.dumps(lab.get_lights()))
-    lights = list(
-        map(int, input("Enter numbers in a comma separated list: ").split(","))
-    )
-    lights = list(map(str, lights))
+    lights = input("Enter numbers in a comma separated list: ").split(",")
 
     print("Adding lights to new lab group...{}".format(lights))
     r = lab.create_group("Lab", lights=lights)
